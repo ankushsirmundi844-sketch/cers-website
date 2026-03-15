@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    #controlMap { height: 600px; border-radius: 8px; z-index: 1; background: #e5e3df; }
+  </style>
 </head>
 <body class="bg-dark">
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(90deg, #0d1b2a 0%, #1a2633 100%);">
@@ -25,7 +28,6 @@
   </nav>
 
   <div class="container-fluid py-3">
-    <!-- Top Stats -->
     <div class="row g-3 mb-4">
       <div class="col-md-3">
         <div class="stat-card">
@@ -66,7 +68,6 @@
     </div>
 
     <div class="row g-3">
-      <!-- Main Map -->
       <div class="col-lg-8">
         <div class="card shadow-lg h-100 bg-dark text-white border-secondary">
           <div class="card-header bg-dark border-secondary">
@@ -83,14 +84,12 @@
             </div>
           </div>
           <div class="card-body p-0">
-            <div id="controlMap" class="map-control"></div>
+            <div id="controlMap"></div>
           </div>
         </div>
       </div>
 
-      <!-- Right Panel: Reports & Actions -->
       <div class="col-lg-4">
-        <!-- Active Reports -->
         <div class="card shadow-lg mb-3 bg-dark text-white border-secondary">
           <div class="card-header bg-dark border-secondary">
             <h5 class="mb-0"><i class="fas fa-list me-2"></i>Active Incidents</h5>
@@ -100,7 +99,6 @@
           </div>
         </div>
 
-        <!-- Department Status -->
         <div class="card shadow-lg bg-dark text-white border-secondary">
           <div class="card-header bg-dark border-secondary">
             <h5 class="mb-0"><i class="fas fa-sitemap me-2"></i>Department Status</h5>
@@ -112,7 +110,6 @@
       </div>
     </div>
 
-    <!-- Charts Row -->
     <div class="row g-3 mt-4 mb-4">
       <div class="col-md-6">
         <div class="card shadow-lg bg-dark text-white border-secondary">
