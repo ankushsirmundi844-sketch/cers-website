@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Report Emergency - City Emergency Response System</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(90deg, #0d1b2a 0%, #1a2633 100%);">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-shield-alt me-2"></i><strong>City Emergency Response</strong>
+      </a>
+      <div class="ms-auto">
+        <a href="index.html" class="btn btn-outline-light btn-sm me-2">Home</a>
+        <a href="control-room.html" class="btn btn-primary btn-sm">Control Room</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid py-5">
+    <div class="row g-4">
+      <!-- Left: Map -->
+      <div class="col-lg-6">
+        <div class="card shadow-lg h-100">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-map me-2"></i>Select Your Location</h5>
+          </div>
+          <div class="card-body p-0">
+            <div id="reportMap" class="map-large"></div>
+            <div class="p-3 border-top">
+              <input id="locationDisplay" class="form-control" readonly placeholder="Click on map to select location">
+              <small class="text-muted mt-2 d-block">Click anywhere on the map to mark your emergency location</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="col-lg-6">
+        <div class="card shadow-lg h-100">
+          <div class="card-header bg-danger text-white">
+            <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Emergency Report Form</h5>
+          </div>
+          <div class="card-body">
+            <form id="reportForm">
+              <!-- Emergency Type -->
+              <div class="mb-4">
+                <label class="form-label fw-bold"><i class="fas fa-list me-2"></i>Emergency Type</label>
+                <div class="row g-2">
+                  <div class="col-6">
+                    <input type="radio" name="emergencyType" value="medical" id="typeMedical" required>
+                    <label for="typeMedical" class="form-check-label ms-2">
+                      <i class="fas fa-heartbeat text-danger"></i> Medical Emergency
+                    </label>
+                  </div>
+                  <div class="col-6">
+                    <input type="radio" name="emergencyType" value="fire" id="typeFire">
+                    <label for="typeFire" class="form-check-label ms-2">
+                      <i class="fas fa-fire text-warning"></i> Fire
+                    </label>
+                  </div>
+                  <div class="col-6">
+                    <input type="radio" name="emergencyType" value="crime" id="typeCrime">
+                    <label for="typeCrime" class="form-check-label ms-2">
+                      <i class="fas fa-shield-halved text-info"></i> Crime
+                    </label>
+                  </div>
+                  <div class="col-6">
+                    <input type="radio" name="emergencyType" value="accident" id="typeAccident">
+                    <label for="typeAccident" class="form-check-label ms-2">
+                      <i class="fas fa-car-crash text-secondary"></i> Accident
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Urgency Level -->
+              <div class="mb-4">
+                <label class="form-label fw-bold"><i class="fas fa-arrow-up me-2"></i>Urgency Level</label>
+                <select id="urgency" class="form-select" required>
+                  <option value="">Select urgency...</option>
+                  <option value="critical">🔴 Critical (Life Threatening)</option>
+                  <option value="high">🟠 High (Immediate Help Needed)</option>
+                  <option value="normal">🟡 Normal (Urgent)</option>
+                </select>
+              </div>
+
+              <!-- Health Care Services (for medical) -->
+              <div class="mb-4" id="healthcareSection" style="display:none;">
+                <label class="form-label fw-bold"><i class="fas fa-hospital me-2"></i>Preferred Healthcare Service</label>
+                <div class="row g-2">
+                  <div class="col-6">
+                    <input type="radio" name="healthService" value="ambulance" id="serviceAmbulance">
+                    <label for="serviceAmbulance" class="form-check-label ms-2">
+                      <i class="fas fa-ambulance text-danger"></i> Blinkit Ambulance
+                    </label>
+                  </div>
+                  <div class="col-6">
+                    <input type="radio" name="healthService" value="hospital" id="serviceHospital">
+                    <label for="serviceHospital" class="form-check-label ms-2">
+                      <i class="fas fa-hospital text-primary"></i> Local Hospital
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Details -->
+              <div class="mb-4">
+                <label class="form-label fw-bold"><i class="fas fa-pen me-2"></i>Incident Details</label>
+                <textarea id="details" class="form-control" rows="4" placeholder="Describe what happened..."></textarea>
+              </div>
+
+              <!-- Contact Info -->
+              <div class="mb-4">
+                <label class="form-label fw-bold"><i class="fas fa-phone me-2"></i>Contact Number (Optional)</label>
+                <input type="tel" id="contact" class="form-control" placeholder="+91 XXXXX XXXXX">
+              </div>
+
+              <!-- Submit -->
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger btn-lg">
+                  <i class="fas fa-paper-plane me-2"></i>Submit Emergency Report
+                </button>
+              </div>
+            </form>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="alert alert-success mt-4" style="display:none;">
+              <i class="fas fa-check-circle me-2"></i>
+              <strong>Report Submitted Successfully!</strong>
+              <p class="mb-0 mt-2" id="reportId"></p>
+              <small class="text-muted">Dispatchers are being notified. You will receive updates shortly.</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/report.js"></script>
+</body>
+</html>
