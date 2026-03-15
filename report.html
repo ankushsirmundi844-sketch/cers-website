@@ -8,6 +8,9 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    #reportMap { height: 500px; border-radius: 8px; z-index: 1; background: #e5e3df; }
+  </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(90deg, #0d1b2a 0%, #1a2633 100%);">
@@ -24,14 +27,13 @@
 
   <div class="container-fluid py-5">
     <div class="row g-4">
-      <!-- Left: Map -->
       <div class="col-lg-6">
         <div class="card shadow-lg h-100">
           <div class="card-header bg-primary text-white">
             <h5 class="mb-0"><i class="fas fa-map me-2"></i>Select Your Location</h5>
           </div>
           <div class="card-body p-0">
-            <div id="reportMap" class="map-large"></div>
+            <div id="reportMap"></div>
             <div class="p-3 border-top">
               <input id="locationDisplay" class="form-control" readonly placeholder="Click on map to select location">
               <small class="text-muted mt-2 d-block">Click anywhere on the map to mark your emergency location</small>
@@ -40,7 +42,6 @@
         </div>
       </div>
 
-      <!-- Right: Form -->
       <div class="col-lg-6">
         <div class="card shadow-lg h-100">
           <div class="card-header bg-danger text-white">
@@ -48,7 +49,6 @@
           </div>
           <div class="card-body">
             <form id="reportForm">
-              <!-- Emergency Type -->
               <div class="mb-4">
                 <label class="form-label fw-bold"><i class="fas fa-list me-2"></i>Emergency Type</label>
                 <div class="row g-2">
@@ -79,7 +79,6 @@
                 </div>
               </div>
 
-              <!-- Urgency Level -->
               <div class="mb-4">
                 <label class="form-label fw-bold"><i class="fas fa-arrow-up me-2"></i>Urgency Level</label>
                 <select id="urgency" class="form-select" required>
@@ -90,7 +89,6 @@
                 </select>
               </div>
 
-              <!-- Health Care Services (for medical) -->
               <div class="mb-4" id="healthcareSection" style="display:none;">
                 <label class="form-label fw-bold"><i class="fas fa-hospital me-2"></i>Preferred Healthcare Service</label>
                 <div class="row g-2">
@@ -109,19 +107,16 @@
                 </div>
               </div>
 
-              <!-- Details -->
               <div class="mb-4">
                 <label class="form-label fw-bold"><i class="fas fa-pen me-2"></i>Incident Details</label>
                 <textarea id="details" class="form-control" rows="4" placeholder="Describe what happened..."></textarea>
               </div>
 
-              <!-- Contact Info -->
               <div class="mb-4">
                 <label class="form-label fw-bold"><i class="fas fa-phone me-2"></i>Contact Number (Optional)</label>
                 <input type="tel" id="contact" class="form-control" placeholder="+91 XXXXX XXXXX">
               </div>
 
-              <!-- Submit -->
               <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-danger btn-lg">
                   <i class="fas fa-paper-plane me-2"></i>Submit Emergency Report
@@ -129,7 +124,6 @@
               </div>
             </form>
 
-            <!-- Success Message -->
             <div id="successMessage" class="alert alert-success mt-4" style="display:none;">
               <i class="fas fa-check-circle me-2"></i>
               <strong>Report Submitted Successfully!</strong>
